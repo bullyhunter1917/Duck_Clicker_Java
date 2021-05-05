@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class Enemy {
     private String imagePath;
-    private int level;
+    private long level;
     private final float fullHealth;
     public float health;
 
@@ -14,14 +14,14 @@ public class Enemy {
         this.fullHealth = health;
     }
 
-    public Enemy(int lvl, float health, String imagePath){
+    public Enemy(long lvl, float health, String imagePath){
         this.level = lvl;
         this.health = health;
         this.imagePath = imagePath;
         this.fullHealth = health;
     }
 
-    public int getLevel() {
+    public long getLevel() {
         return level;
     }
 

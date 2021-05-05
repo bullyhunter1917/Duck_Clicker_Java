@@ -11,11 +11,10 @@ public class Board extends JPanel implements ActionListener{
     private Image background_clicking_area;
     private Image oponent;
     private Enemy oponent_stats;
+    private Stats player;
 
     private int x = 1000;
 
-    //później będzie w statch gracza
-    private int lvl = 1;
 
     public Board() {
         initBoard();
@@ -32,7 +31,7 @@ public class Board extends JPanel implements ActionListener{
         background_ducks = loadImage("ducks_background.png");
         oponent = loadImage("kaczka1_poprawiona.png");
         oponent_stats = new Enemy();
-
+        player = new Stats();
         
 
         int w = background.getWidth(this);
@@ -71,9 +70,13 @@ public class Board extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         //System.out.println("1");
+        player.counterAdd1();
         oponent_stats.health -= 1;
         if (oponent_stats.health <= 0) {
-            oponent_stats = new Enemy(lvl+=1, lvl*10f, "kaczka1_poprawiona.png");
+            player.depositGold(player.getLevel()*5/4);
+            player.addLevel();
+            oponent_stats = new Enemy(player.getLevel(), player.getLevel()*10f, "kaczka1_poprawiona.png");
+            System.out.println(player.getGold());
         }
         System.out.println(oponent_stats.health);
     }
