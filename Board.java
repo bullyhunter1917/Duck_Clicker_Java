@@ -10,8 +10,12 @@ public class Board extends JPanel implements ActionListener{
     private Image background_ducks;
     private Image background_clicking_area;
     private Image oponent;
+    private Enemy oponent_stats;
 
     private int x = 1000;
+
+    //później będzie w statch gracza
+    private int lvl = 1;
 
     public Board() {
         initBoard();
@@ -27,7 +31,9 @@ public class Board extends JPanel implements ActionListener{
         background_clicking_area = loadImage("ClickingArea_background_wieksze.png");
         background_ducks = loadImage("ducks_background.png");
         oponent = loadImage("kaczka1_poprawiona.png");
+        oponent_stats = new Enemy();
 
+        
 
         int w = background.getWidth(this);
         int h = background.getHeight(this);
@@ -58,10 +64,17 @@ public class Board extends JPanel implements ActionListener{
         g.drawImage(background_clicking_area, 1000, 500, null);
         g.drawImage(background_ducks, 0, 0, null);
         g.drawImage(oponent, x, 10, null);
+        g.setColor(Color.RED);
+        g.fillRect(1060, 920, (int)(600*oponent_stats.procentHealth()), 50);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("1");
+        //System.out.println("1");
+        oponent_stats.health -= 1;
+        if (oponent_stats.health <= 0) {
+            oponent_stats = new Enemy(lvl+=1, lvl*10f, "kaczka1_poprawiona.png");
+        }
+        System.out.println(oponent_stats.health);
     }
 }
