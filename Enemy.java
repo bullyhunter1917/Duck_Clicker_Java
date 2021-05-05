@@ -2,22 +2,22 @@ import java.awt.*;
 
 
 public class Enemy {
-    private String imagePath;
+    private Image icon;
     private long level;
     private final float fullHealth;
     public float health;
 
-    public Enemy() {
+    public Enemy(Image icon) {
         this.level = -1;
         this.health = 10;
-        this.imagePath = "kaczka1_poprawiona.png";
+        this.icon = icon;
         this.fullHealth = health;
     }
 
-    public Enemy(long lvl, float health, String imagePath){
+    public Enemy(long lvl, float health, Image icon){
         this.level = lvl;
         this.health = health;
-        this.imagePath = imagePath;
+        this.icon = icon;
         this.fullHealth = health;
     }
 
@@ -25,11 +25,15 @@ public class Enemy {
         return level;
     }
 
-    public String getPath() {
-        return imagePath;
+    public Image getImage() {
+        return icon;
     }
 
     public float procentHealth() {
         return health/fullHealth;
+    }
+
+    public String getStringHealth() {
+        return String.valueOf((int)health);
     }
 }
