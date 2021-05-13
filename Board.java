@@ -124,17 +124,32 @@ public class Board extends JPanel implements ActionListener{
         g.setColor(Color.BLACK);
         g.drawString(oponent_stats.getStringHealth(), 1350, 960);
         //Gold
-        g.drawString("Gold: " + String.valueOf(player.getGold()), 200, 70);
+        g.drawString("Silver: " + String.valueOf(player.getGold()), 200, 70);
         //Level bohaterów
         int y = 250;
-        for (Heroes heroes : bohaterowie) {
-            g.drawImage(heroes.getIcon(), 470, y-20, null);
-            g.drawImage(buy_button, 100, y, null);
+        if(page < 5) {
+            for (Heroes heroes : bohaterowie) {
+                g.drawImage(heroes.getIcon(), 470, y-20, null);
+                g.drawImage(buy_button, 100, y, null);
+                g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
+                g.drawString("Level: " + heroes.getLevel(), 250, 270);
+                g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+                g.drawString("Price: " + heroes.getPrice(), 250, 330);
+                y += 50;
+            }
+        }
+        else if (page == 5) {
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
+            g.drawString("Stats", 270, 300);
             g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-            g.drawString("Level: " + heroes.getLevel(), 250, 270);
-            g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-            g.drawString("Price: " + heroes.getPrice(), 250, 330);
-            y += 50;
+            g.drawString("Level: " + player.getLevel(), 50, 400);
+            g.drawString("Ilość Kliknięć: " + player.getIloscKlikniec(), 50, 450);
+            g.drawString("Zarobione srebro: " + player.getTotalGold(), 50, 500);
+            g.drawString("Click DMG: " + attacHero.getDmg(), 50, 550);
+        }
+        else {
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
+            g.drawString("Settings", 220, 300);
         }
     }
 
@@ -147,17 +162,15 @@ public class Board extends JPanel implements ActionListener{
         }
         //Atakowanie przeciwnika
         else if (e.getActionCommand() == "Dmg"){
-        player.counterAdd1();
-        oponent_stats.health -= attacHero.getDmg();
-        if (oponent_stats.health <= 0) {
-            Random rand = new Random();
-            player.depositGold(oponent_stats.getLevel()*5/4);
-            player.addLevel();
-            System.out.println(rand.nextInt(1));
-            oponent_stats = new Enemy(player.getLevel(), player.getLevel()*120/11f, loadImage(oponentPath[rand.nextInt(2)]));
-            //System.out.println(player.getGold());\
+            player.counterAdd1();
+            oponent_stats.health -= attacHero.getDmg();
+            if (oponent_stats.health <= 0) {
+                Random rand = new Random();
+                player.depositGold(oponent_stats.getLevel()*5/4);
+                player.addLevel();
+                oponent_stats = new Enemy(player.getLevel(), player.getLevel()*120/11f, loadImage(oponentPath[rand.nextInt(2)]));
+            }
             this.repaint();
-        }
         }
         else if ((e.getActionCommand()).substring(0,3).equals("buy")) {
             int index = Integer.valueOf(e.getActionCommand().substring(3));

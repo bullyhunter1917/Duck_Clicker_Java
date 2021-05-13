@@ -2,11 +2,13 @@ public class Stats {
     private long level;
     private long ilosc_klikniec;
     private long gold;
+    private long total_gold;
 
     public Stats() {
         level = 1;
         ilosc_klikniec = 0;
         gold = 0;
+        total_gold = 0;
     }
 
     public long getGold() {
@@ -15,6 +17,10 @@ public class Stats {
 
     public long getLevel() {
         return level;
+    }
+
+    public long getTotalGold() {
+        return total_gold;
     }
 
     public long getIloscKlikniec() {
@@ -31,6 +37,7 @@ public class Stats {
 
     public void depositGold(long suma) {
         gold += suma;
+        total_gold += suma;
     }
 
     public void counterAdd1() {
