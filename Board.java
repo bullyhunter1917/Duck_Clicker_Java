@@ -9,7 +9,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class Board extends JPanel implements ActionListener{
-    
+
+    private int page;
+
     private Image background;
     private Image background_ducks;
     private Image background_clicking_area;
@@ -32,6 +34,24 @@ public class Board extends JPanel implements ActionListener{
         // add(new Ducks());
         // add(new ClickingArea());
 
+        page = 0;
+
+        int dx = 20;
+
+        for (int i = 0; i < 7; i++) {
+            JButton button = new JButton();
+            button.setBounds(dx, 120, 70, 70);
+            
+
+            
+            button.addActionListener(this);
+            button.setActionCommand(String.valueOf(i));
+
+
+
+            dx += 99;
+            add(button);
+        }
         
         player = new Stats();
         attacHero = new Heroes("Beat Saber Duck", 1);
@@ -39,7 +59,7 @@ public class Board extends JPanel implements ActionListener{
 
         background = loadImage("game_background.jpg");
         background_clicking_area = loadImage("ClickingArea_background_wieksze.png");
-        background_ducks = loadImage("ducks_background.png");
+        background_ducks = loadImage("ducks_background_page1.png");
         gold_background = loadImage("coin_background.png");
         buy_button = loadImage("buy_button.jpg");
         gold_icon = loadImage("coin_icon.png");
@@ -79,6 +99,10 @@ public class Board extends JPanel implements ActionListener{
         return ii.getImage();
     }
 
+    private Image loadPage(int page) {
+        ImageIcon ii = new ImageIcon("resourses/ducks_background_page" + String.valueOf(page + 1) + ".png");
+        return ii.getImage();
+    }
 
     @Override
     public void paintComponent(Graphics g){
@@ -86,7 +110,8 @@ public class Board extends JPanel implements ActionListener{
         //Background images
         g.drawImage(background, 0, 0, null);
         g.drawImage(background_clicking_area, 1000, 500, null);
-        g.drawImage(background_ducks, 0, 100, null);
+        //Rysowanie konkretnej strony
+        g.drawImage(loadPage(page), 0, 80, null);
         g.drawImage(gold_background, 0, 0, null);
         g.drawImage(gold_icon, 30, 2, null);
         g.drawImage(gold_icon, 580, 2, null);
@@ -116,17 +141,12 @@ public class Board extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         //Przycisk kupna
-        if ((e.getActionCommand()).substring(0,3).equals("buy")) {
-            int index = Integer.valueOf(e.getActionCommand().substring(3));
-            if(bohaterowie.get(index).canBuy(player.getGold())) {
-                player.payGold(bohaterowie.get(index).getPrice());
-                bohaterowie.get(index).upgrade();
-                this.repaint();
-            }
-            System.out.println("buy");
+        if (e.getActionCommand().length() == 1) {
+            page = Integer.valueOf(e.getActionCommand());
+            this.repaint();
         }
         //Atakowanie przeciwnika
-        else {
+        else if (e.getActionCommand() == "Dmg"){
         player.counterAdd1();
         oponent_stats.health -= attacHero.getDmg();
         if (oponent_stats.health <= 0) {
@@ -138,7 +158,14 @@ public class Board extends JPanel implements ActionListener{
             //System.out.println(player.getGold());\
             this.repaint();
         }
-        System.out.println(oponent_stats.health);
+        }
+        else if ((e.getActionCommand()).substring(0,3).equals("buy")) {
+            int index = Integer.valueOf(e.getActionCommand().substring(3));
+            if(bohaterowie.get(index).canBuy(player.getGold())) {
+                player.payGold(bohaterowie.get(index).getPrice());
+                bohaterowie.get(index).upgrade();
+                this.repaint();
+            }
         }
     }
 }
