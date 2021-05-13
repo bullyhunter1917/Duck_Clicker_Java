@@ -8,7 +8,7 @@ public class Enemy {
     public float health;
 
     public Enemy(Image icon) {
-        this.level = -1;
+        this.level = 1;
         this.health = 10;
         this.icon = icon;
         this.fullHealth = health;

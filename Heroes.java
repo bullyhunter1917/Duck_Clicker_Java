@@ -14,6 +14,13 @@ public class Heroes {
         this.level = 1;
     }
 
+    public Heroes(String name, long level, long dmg, long price) {
+        this.name = name;
+        this.level = level;
+        this.dmg = dmg;
+        this.price = price;
+    }
+
     public void setIcon(Image icon) {
        this.icon = icon;
     }
@@ -36,8 +43,12 @@ public class Heroes {
 
     public void upgrade() {
         level++;
-        dmg *= level*7/10;
-        price *= level*2;
+        dmg += level*6/10;
+        price += level*17/10;
+    }
+
+    public String getLevel() {
+        return String.valueOf(level);
     }
 
 }
