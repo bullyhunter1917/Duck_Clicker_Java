@@ -7,18 +7,20 @@ public class Heroes {
     private long level;
     private Image icon;
 
-    public Heroes(String name, long level) {
+    public Heroes(String name, long level, Image icon) {
         this.name = name;
         this.dmg = level*10/9;
         this.price = level*10/7;
         this.level = 1;
+        this.icon = icon;
     }
 
-    public Heroes(String name, long level, long dmg, long price) {
+    public Heroes(String name, long level, long dmg, long price, Image icon) {
         this.name = name;
         this.level = level;
         this.dmg = dmg;
         this.price = price;
+        this.icon = icon;
     }
 
     public void setIcon(Image icon) {
@@ -27,6 +29,10 @@ public class Heroes {
 
     public Image getIcon() {
         return icon;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public long getDmg() {
