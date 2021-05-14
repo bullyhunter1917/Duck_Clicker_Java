@@ -26,7 +26,7 @@ public class Board extends JPanel implements ActionListener{
     private ArrayList<Heroes> bohaterowie;
     private ArrayList<JButton> buy_buttons;
     private String[] oponentPath = {"kaczka1_poprawiona.png", "hrabia_Kaczula.png"};
-    private String[] heroesNames = {"Beat Saber Dukc", "YasDuck", "Waifu Duck", "No Name Duck", "No Name Duck", "No Name Duck", "No Name Duck", "No Name Duck"};
+    private String[] heroesNames = {"Beat Saber Duck", "YasDuck", "Waifu Duck", "No Name Duck", "No Name Duck", "No Name Duck", "No Name Duck", "No Name Duck"};
     private String[] heroesPath = {"beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "Yasuokaczka.png", "Yasuokaczka.png", "Yasuokaczka.png", "Yasuokaczka.png", "Yasuokaczka.png"};
 
     public Board() {
@@ -65,8 +65,9 @@ public class Board extends JPanel implements ActionListener{
             dPrice += 10;
         }
 
+        buy_buttons = new ArrayList<JButton>();
         int dy = 250;
-        for (int i = 0; i < heroesNames.length; i++) {
+        for (int i = 0; i < 4; i++) {
             JButton button = new JButton();
             button.setBounds(50, dy, 140, 60);
 
@@ -76,9 +77,12 @@ public class Board extends JPanel implements ActionListener{
 
             button.addActionListener(this);
             button.setActionCommand("buy"+i);
+            buy_buttons.add(button);
             add(button);
             dy += 200;
         }
+
+
     
         player = new Stats();
         
@@ -111,6 +115,8 @@ public class Board extends JPanel implements ActionListener{
         //Adding button to JPanel
         add(b);
 
+
+        //DPS - timer który co sekundę zadaje obrażenia oponentowi
         Timer timer = new Timer();
         TimerTask myTask = new TimerTask(){
             @Override
@@ -200,6 +206,9 @@ public class Board extends JPanel implements ActionListener{
         //Przycisk kupna
         if (e.getActionCommand().length() == 1) {
             page = Integer.valueOf(e.getActionCommand());
+            for (int i = 0; i < 4; i++) {
+                buy_buttons.get(i).setActionCommand("buy"+(page*4+i));
+            }
             this.repaint();
         }
         //Atakowanie przeciwnika

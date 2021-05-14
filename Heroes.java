@@ -49,8 +49,14 @@ public class Heroes {
 
     public void upgrade() {
         level++;
+        if (level == 1) {
+            dmg = 1;
+            price += level*17/10;
+        }
+        else {
         dmg += level*6/10;
         price += level*17/10;
+        }
     }
 
     public String getLevel() {
