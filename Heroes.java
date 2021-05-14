@@ -23,10 +23,6 @@ public class Heroes {
         this.icon = icon;
     }
 
-    public void setIcon(Image icon) {
-       this.icon = icon;
-    }
-
     public Image getIcon() {
         return icon;
     }

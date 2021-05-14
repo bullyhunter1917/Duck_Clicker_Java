@@ -9,7 +9,7 @@ public class Application extends JFrame{
 
     private void initUI() {
         
-        add(new Board());
+        StateMengaer msg = new StateMengaer(this);
 
         setSize(1920, 1080);
 

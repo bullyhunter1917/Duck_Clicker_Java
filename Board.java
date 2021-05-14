@@ -10,34 +10,38 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class Board extends JPanel implements ActionListener{
+public class Board extends JPanel implements ActionListener {
+    
+    private StateMengaer msg;
 
     private int page;
-
+    //Images
     private Image background;
     private Image background_ducks;
     private Image background_clicking_area;
     private Image gold_background;
     private Image buy_button;
     private Image gold_icon;
+    //Must have classes
     private Enemy oponent_stats;
     private Stats player;
     private Heroes Hero;
+    //Arrays for heroes and buttons
     private ArrayList<Heroes> bohaterowie;
     private ArrayList<JButton> buy_buttons;
-    private String[] oponentPath = {"kaczka1_poprawiona.png", "hrabia_Kaczula.png"};
-    private String[] heroesNames = {"Beat Saber Duck", "YasDuck", "Waifu Duck", "No Name Duck", "No Name Duck", "No Name Duck", "No Name Duck", "No Name Duck"};
-    private String[] heroesPath = {"beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "Yasuokaczka.png", "Yasuokaczka.png", "Yasuokaczka.png", "Yasuokaczka.png", "Yasuokaczka.png"};
+    //String arrays for constant values
+    private final String[] oponentPath = {"kaczka1_poprawiona.png", "hrabia_Kaczula.png"};
+    private final String[] heroesNames = {"Beat Saber Duck", "YasDuck", "Waifu Duck", "No Name Duck", "No Name Duck", "No Name Duck", "No Name Duck", "No Name Duck"};
+    private final String[] heroesPath = {"beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "Yasuokaczka.png", "Yasuokaczka.png", "Yasuokaczka.png", "Yasuokaczka.png", "Yasuokaczka.png"};
 
-    public Board() {
+    public Board(StateMengaer msg) {
+        this.msg = msg;
         initBoard();
     }
 
     public void initBoard(){
-        //Dodanie lewego panelu na którym będą kaczki/bohaterowie
         this.setLayout(null);
-        // add(new Ducks());
-        // add(new ClickingArea());
+
 
         page = 0;
 
@@ -56,6 +60,7 @@ public class Board extends JPanel implements ActionListener{
             add(button);
         }
 
+        //Creating all heroes
         bohaterowie = new ArrayList<Heroes>();
         int dPrice = 0;
         for (int i = 0; i < heroesNames.length; i++) {
@@ -65,6 +70,7 @@ public class Board extends JPanel implements ActionListener{
             dPrice += 10;
         }
 
+        //Creating buy buttons
         buy_buttons = new ArrayList<JButton>();
         int dy = 250;
         for (int i = 0; i < 4; i++) {
@@ -82,8 +88,19 @@ public class Board extends JPanel implements ActionListener{
             dy += 200;
         }
 
-
-    
+        //Adding attack button
+        JButton b = new JButton();
+        b.setBounds(1000, 60, 820, 940);
+        //Setting button invisible
+        b.setOpaque(false);
+        b.setContentAreaFilled(false);
+        b.setBorderPainted(false);
+        //Adding actionListener
+        b.addActionListener(this);
+        b.setActionCommand("Dmg");
+        //Adding button to JPanel
+        add(b);
+        
         player = new Stats();
         
         //Init oponent
@@ -101,19 +118,6 @@ public class Board extends JPanel implements ActionListener{
         
 
         setPreferredSize(new Dimension(1920, 1080));
-
-        //Adding attack button
-        JButton b = new JButton();
-        b.setBounds(1000, 60, 820, 940);
-        //Setting button invisible
-        b.setOpaque(false);
-        b.setContentAreaFilled(false);
-        b.setBorderPainted(false);
-        //Adding actionListener
-        b.addActionListener(this);
-        b.setActionCommand("Dmg");
-        //Adding button to JPanel
-        add(b);
 
 
         //DPS - timer który co sekundę zadaje obrażenia oponentowi
@@ -149,22 +153,20 @@ public class Board extends JPanel implements ActionListener{
         return ii.getImage();
     }
 
-    
-
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         //Background images
         g.drawImage(background, 0, 0, null);
         g.drawImage(background_clicking_area, 1000, 500, null);
-        //Rysowanie konkretnej strony
+        //Drawing pages
         g.drawImage(loadPage(page), 0, 80, null);
         g.drawImage(gold_background, 0, 0, null);
         g.drawImage(gold_icon, 30, 2, null);
         g.drawImage(gold_icon, 580, 2, null);
-        //Obrazek przeciwnika
+        //Enemy image
         g.drawImage(oponent_stats.getImage(), 1000, 80, null);
-        //Pasek życia z ilością życia
+        //Health bar
         g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
         g.setColor(Color.RED);
         g.fillRect(1060, 920, (int)(600*oponent_stats.procentHealth()), 50);
@@ -172,7 +174,7 @@ public class Board extends JPanel implements ActionListener{
         g.drawString(oponent_stats.getStringHealth(), 1350, 960);
         //Gold
         g.drawString("Silver: " + String.valueOf(player.getGold()), 200, 70);
-        //Level bohaterów
+        //Level/Name/Price of Heroes
         int y = 250;
         if(page < 5) {
             for (int i = page*4; i < page*4 + 4; i++) {
@@ -186,6 +188,7 @@ public class Board extends JPanel implements ActionListener{
                 y += 200;
             }
         }
+        //Stats of player
         else if (page == 5) {
             g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
             g.drawString("Stats", 270, 300);
@@ -195,6 +198,7 @@ public class Board extends JPanel implements ActionListener{
             g.drawString("Zarobione srebro: " + player.getTotalGold(), 50, 500);
             g.drawString("Click DMG: " + bohaterowie.get(0).getDmg(), 50, 550);
         }
+        //Setting
         else {
             g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
             g.drawString("Settings", 220, 300);
@@ -203,7 +207,7 @@ public class Board extends JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //Przycisk kupna
+        //Page buttons
         if (e.getActionCommand().length() == 1) {
             page = Integer.valueOf(e.getActionCommand());
             for (int i = 0; i < 4; i++) {
@@ -211,7 +215,7 @@ public class Board extends JPanel implements ActionListener{
             }
             this.repaint();
         }
-        //Atakowanie przeciwnika
+        //Attack button
         else if (e.getActionCommand() == "Dmg"){
             player.counterAdd1();
             oponent_stats.health -= bohaterowie.get(0).getDmg();
@@ -223,6 +227,7 @@ public class Board extends JPanel implements ActionListener{
             }
             this.repaint();
         }
+        //Buy buttons
         else if ((e.getActionCommand()).substring(0,3).equals("buy")) {
             int index = Integer.valueOf(e.getActionCommand().substring(3));
             if(bohaterowie.get(index).canBuy(player.getGold())) {
