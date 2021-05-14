@@ -3,13 +3,14 @@ import javax.swing.JFrame;
 public class Application extends JFrame{
     
     public Application() {
-        
         initUI();
     }
 
     private void initUI() {
+
+        //StateMengaer msg = new StateMengaer(this);
         
-        StateMengaer msg = new StateMengaer(this);
+        add(new Board());
 
         setSize(1920, 1080);
 

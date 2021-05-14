@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -16,6 +14,7 @@ public class StateMengaer {
     public void change(JPanel state) {
         window.remove(this.state);
         this.state = state;
-        window.add(state);
+        window.add(this.state);
     }
+
 }

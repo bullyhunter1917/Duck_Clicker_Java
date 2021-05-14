@@ -27,8 +27,6 @@ public class StartState extends JPanel implements ActionListener {
         b.addActionListener(this);
         b.setActionCommand("START");
         add(b);
-        
-        
     }
 
     public void loadImage() {
@@ -38,17 +36,19 @@ public class StartState extends JPanel implements ActionListener {
 
     @Override
     public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        //Drawing background of this state
         g.drawImage(background, 0, 0, null);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand() == "START") {
-            System.out.println("1");
+            //changing game state when we click start button
             msg.change(new Board(msg));
+            System.out.println("1");
         } else {
             System.out.println("cos");
         }      
-        
     }
 }

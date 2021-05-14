@@ -34,6 +34,10 @@ public class Board extends JPanel implements ActionListener {
     private final String[] heroesNames = {"Beat Saber Duck", "YasDuck", "Waifu Duck", "No Name Duck", "No Name Duck", "No Name Duck", "No Name Duck", "No Name Duck"};
     private final String[] heroesPath = {"beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "Yasuokaczka.png", "Yasuokaczka.png", "Yasuokaczka.png", "Yasuokaczka.png", "Yasuokaczka.png"};
 
+    public Board() {
+        initBoard();
+    }
+
     public Board(StateMengaer msg) {
         this.msg = msg;
         initBoard();
@@ -176,7 +180,7 @@ public class Board extends JPanel implements ActionListener {
         g.drawString("Silver: " + String.valueOf(player.getGold()), 200, 70);
         //Level/Name/Price of Heroes
         int y = 250;
-        if(page < 5) {
+        if(page < 4) {
             for (int i = page*4; i < page*4 + 4; i++) {
                 g.drawImage(bohaterowie.get(i).getIcon(), 540, y-20, null);
                 g.drawImage(buy_button, 50, y, null);
@@ -188,15 +192,23 @@ public class Board extends JPanel implements ActionListener {
                 y += 200;
             }
         }
+        //Artifact page
+        else if (page == 4) {
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
+            g.drawString("Owned Artifacts", 100, 300);
+        }
         //Stats of player
         else if (page == 5) {
+            //Dodać Heroes Level, APS - attention per second, owned fethers 
             g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
             g.drawString("Stats", 270, 300);
             g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
             g.drawString("Level: " + player.getLevel(), 50, 400);
             g.drawString("Ilość Kliknięć: " + player.getIloscKlikniec(), 50, 450);
             g.drawString("Zarobione srebro: " + player.getTotalGold(), 50, 500);
-            g.drawString("Click DMG: " + bohaterowie.get(0).getDmg(), 50, 550);
+            g.drawString("Click Attention: " + bohaterowie.get(0).getDmg(), 50, 550);
+            g.drawString("Heroes Levels: " + player.getHereosLevels(), 50, 600);
+            g.drawString("Fethers: " + player.getFeather(), 50, 650);
         }
         //Setting
         else {
@@ -233,6 +245,7 @@ public class Board extends JPanel implements ActionListener {
             if(bohaterowie.get(index).canBuy(player.getGold())) {
                 player.payGold(bohaterowie.get(index).getPrice());
                 bohaterowie.get(index).upgrade();
+                player.addHeroesLevels();
                 this.repaint();
             }
         }
