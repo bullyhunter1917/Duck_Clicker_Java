@@ -8,6 +8,7 @@ public class Stats implements Serializable {
     private long total_gold;
     private int feather;
     private long heroesLevels;
+    private int artefactCount;
     private ArrayList<Artefact> owned_Artefacts;
 
     public Stats() {
@@ -17,6 +18,11 @@ public class Stats implements Serializable {
         total_gold = 0;
         feather = 0;
         heroesLevels = 1;
+        owned_Artefacts = new ArrayList<Artefact>();
+        owned_Artefacts.add(new Artefact("Golden Feather", "Gold: x", 1, 2, 100, "szkielekaczor.png"));
+        owned_Artefacts.add(new Artefact("Sign of wisdom", "Attention: x", 1, 2, 100, "szkielekaczor.png"));
+        owned_Artefacts.add(new Artefact("smth i do no", "?????: x", 1, 2, 100, "szkielekaczor.png"));
+        artefactCount = 3;
     }
 
     public long getGold() {
@@ -66,5 +72,21 @@ public class Stats implements Serializable {
 
     public int getFeather() {
         return feather;
+    }
+
+    public void depositFeathers(int value) {
+        feather += value;
+    }
+
+    public void payFeather(int price) {
+        feather -= price;
+    }
+
+    public ArrayList<Artefact> getOwnedArtefacts() {
+        return owned_Artefacts;
+    }
+
+    public int getArtefactCount() {
+        return artefactCount;
     }
 }

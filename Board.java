@@ -26,6 +26,11 @@ public class Board extends JPanel implements ActionListener {
     private Enemy oponent_stats;
     private Stats player;
     private Heroes Hero;
+    private Artefacts artefacts;
+    //Buttons for artefacts
+    private JButton buyArtefact;
+    private JButton restart;
+    private ArrayList<JButton> buyArtefacts;
     //Arrays for heroes and buttons
     private ArrayList<Heroes> bohaterowie;
     private ArrayList<JButton> buy_buttons;
@@ -46,6 +51,8 @@ public class Board extends JPanel implements ActionListener {
     public void initBoard(){
         this.setLayout(null);
 
+        //Initing artefacts
+        artefacts = new Artefacts(100);
 
         page = 0;
 
@@ -92,6 +99,26 @@ public class Board extends JPanel implements ActionListener {
             dy += 200;
         }
 
+        //Creating buyArtefacts buttons
+        buyArtefacts = new ArrayList<JButton>();
+        dy = 550;
+        for (int j = 0; j < 3; j++) {
+            JButton button = new JButton();
+            button.setBounds(50, dy, 140, 60);
+            button.setEnabled(false);
+
+            button.setOpaque(false);
+            button.setContentAreaFilled(false);
+            button.setBorderPainted(false);
+
+            button.addActionListener(this);
+            button.setActionCommand("BUY"+j);
+            buyArtefacts.add(button);
+            add(button);
+            dy += 150;
+        }
+
+
         //Adding attack button
         JButton b = new JButton();
         b.setBounds(1000, 60, 820, 940);
@@ -104,6 +131,27 @@ public class Board extends JPanel implements ActionListener {
         b.setActionCommand("Dmg");
         //Adding button to JPanel
         add(b);
+
+        //Buy Artefact button
+        buyArtefact = new JButton();
+        buyArtefact.setBounds(400, 360, 140, 60);
+        buyArtefact.setOpaque(false);
+        buyArtefact.setContentAreaFilled(false);
+        buyArtefact.setBorderPainted(false);
+        buyArtefact.addActionListener(this);
+        buyArtefact.setActionCommand("Artefact");
+        buyArtefact.setEnabled(false);
+        add(buyArtefact);
+
+        restart = new JButton();
+        restart.setBounds(400, 420, 140, 60);
+        restart.setOpaque(false);
+        restart.setContentAreaFilled(false);
+        restart.setBorderPainted(false);
+        restart.addActionListener(this);
+        restart.setActionCommand("RESTART");
+        restart.setEnabled(false);
+        add(restart);
         
         player = new Stats();
         
@@ -157,6 +205,19 @@ public class Board extends JPanel implements ActionListener {
         return ii.getImage();
     }
 
+    private void changeHeroesBuyButtons(boolean z) {
+        for (JButton button : buy_buttons) {
+            button.setEnabled(z);
+        }
+    }
+
+    private void changeArtefactsBuyButtons(boolean z) {
+        for (JButton button : buyArtefacts) {
+            button.setEnabled(z);
+        }
+    }
+
+
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -181,6 +242,10 @@ public class Board extends JPanel implements ActionListener {
         //Level/Name/Price of Heroes
         int y = 250;
         if(page < 4) {
+            restart.setEnabled(false);
+            buyArtefact.setEnabled(false);
+            changeArtefactsBuyButtons(false);
+            changeHeroesBuyButtons(true);
             for (int i = page*4; i < page*4 + 4; i++) {
                 g.drawImage(bohaterowie.get(i).getIcon(), 540, y-20, null);
                 g.drawImage(buy_button, 50, y, null);
@@ -194,11 +259,49 @@ public class Board extends JPanel implements ActionListener {
         }
         //Artifact page
         else if (page == 4) {
+            changeHeroesBuyButtons(false);
+            changeArtefactsBuyButtons(true);
             g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
             g.drawString("Owned Artifacts", 100, 300);
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
+            g.drawString("Feathers: " + player.getFeather(), 100, 400);
+            g.drawString("Price: " + artefacts.getPrice(), 100, 450);
+            if (player.getLevel() < 500) {
+                g.drawImage(buy_button, 400, 420, null);
+                g.setFont(new Font("TimesRoman", Font.PLAIN, 15));
+                g.drawString("Can restart after lvl 500", 400, 500);
+                g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
+            }
+            else {
+                restart.setEnabled(true);
+                g.drawImage(buy_button, 400, 420, null);
+            }
+            
+            if (artefacts.getArtefactsLeft() > 0) {
+                buyArtefact.setEnabled(true);
+                g.drawImage(buy_button, 400, 360, null);  
+            } else {
+                buyArtefact.setEnabled(false);
+                g.drawImage(buy_button, 400, 360, null);
+            }
+            
+            int dy = 550;
+            for (Artefact artefact : player.getOwnedArtefacts()) {
+                g.drawString(artefact.getName(), 200, dy);
+                g.drawString(artefact.getEfect() + artefact.getPower(), 200, dy+30);
+                g.drawImage(artefact.getIcon(), 500, dy-30, null);
+                g.drawString("Level: " + artefact.getLevel(), 200, dy + 60);
+                g.drawString("Price: " + artefact.getPrice(), 200, dy + 90);
+                g.drawImage(buy_button, 50, dy, null);
+                dy+=150;
+            }
         }
         //Stats of player
         else if (page == 5) {
+            restart.setEnabled(false);
+            buyArtefact.setEnabled(false);
+            changeHeroesBuyButtons(false);
+            changeArtefactsBuyButtons(false);
             //Dodać Heroes Level, APS - attention per second, owned fethers 
             g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
             g.drawString("Stats", 270, 300);
@@ -212,6 +315,10 @@ public class Board extends JPanel implements ActionListener {
         }
         //Setting
         else {
+            restart.setEnabled(false);
+            buyArtefact.setEnabled(false);
+            changeHeroesBuyButtons(false);
+            changeArtefactsBuyButtons(false);
             g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
             g.drawString("Settings", 220, 300);
         }
@@ -227,6 +334,16 @@ public class Board extends JPanel implements ActionListener {
             }
             this.repaint();
         }
+        else if (e.getActionCommand() == "RESTART") {
+            player.depositFeathers(100);
+            this.repaint();
+        }
+        else if (e.getActionCommand() == "Artefact") {
+            if (artefacts.canBuy(player.getFeather())) {
+                player.addArtefact(artefacts.buyArtifact());
+                this.repaint();
+            }
+        }
         //Attack button
         else if (e.getActionCommand() == "Dmg"){
             player.counterAdd1();
@@ -238,6 +355,15 @@ public class Board extends JPanel implements ActionListener {
                 oponent_stats = new Enemy(player.getLevel(), player.getLevel()*120/11f, loadImage(oponentPath[rand.nextInt(2)]));
             }
             this.repaint();
+        }
+        //Buy Artefacts buttons
+        else if ((e.getActionCommand()).substring(0,3).equals("BUY")) {
+            int index = Integer.valueOf(e.getActionCommand().substring(3));
+            if (player.getOwnedArtefacts().get(index).canUpgrade(player.getFeather())) {
+                player.payFeather(player.getOwnedArtefacts().get(index).getPrice());   
+                player.getOwnedArtefacts().get(index).upgrade(1);             
+                this.repaint();
+            }
         }
         //Buy buttons
         else if ((e.getActionCommand()).substring(0,3).equals("buy")) {
