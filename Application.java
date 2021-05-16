@@ -8,9 +8,9 @@ public class Application extends JFrame{
 
     private void initUI() {
 
-        //StateMengaer msg = new StateMengaer(this);
+        StateMengaer msg = new StateMengaer(this);
         
-        add(new Board());
+        //add(new Board());
 
         setSize(1920, 1080);
 

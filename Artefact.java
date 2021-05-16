@@ -1,14 +1,15 @@
 import java.awt.Image;
+import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 
-public class Artefact {
+public class Artefact implements Serializable{
     private String name;
     private String efect;
     private int level;
     private int power;
     private int price;
-    private Image icon;
+    private transient Image icon;
 
     public Artefact(String name, String efect, int level, int power, int price, String path) {
         this.name = name;

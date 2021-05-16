@@ -29,8 +29,8 @@ public class Stats implements Serializable {
         int dPrice = 0;
         Heroes Hero;
         for (int i = 0; i < heroesNames.length; i++) {
-            if (i == 0) { Hero = new Heroes(heroesNames[i], 1, 1, 1, loadImage(heroesPath[i])); }
-            else { Hero = new Heroes(heroesNames[i], 0, 0, dPrice, loadImage(heroesPath[i])); }
+            if (i == 0) { Hero = new Heroes(heroesNames[i], 1, 1, 1); }
+            else { Hero = new Heroes(heroesNames[i], 0, 0, dPrice); }
             bohaterowie.add(Hero);
             dPrice += 10;
         }
@@ -122,5 +122,9 @@ public class Stats implements Serializable {
 
     public int getHeroesCount() {
         return bohaterowie.size();
+    }
+
+    public Image getHeroImage(int index) {
+        return loadImage(heroesPath[index]);
     }
 }

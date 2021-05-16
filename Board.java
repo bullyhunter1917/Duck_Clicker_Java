@@ -1,5 +1,10 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -32,6 +37,8 @@ public class Board extends JPanel implements ActionListener {
     private ArrayList<JButton> buyArtefacts;
     //Arrays for heroes buy buttons
     private ArrayList<JButton> buy_buttons;
+    //Buttons for settings
+    private JButton save;
     //String arrays for constant values
     private final String[] oponentPath = {"kaczka1_poprawiona.png", "hrabia_Kaczula.png"};
     
@@ -104,7 +111,6 @@ public class Board extends JPanel implements ActionListener {
             dy += 150;
         }
 
-
         //Adding attack button
         JButton b = new JButton();
         b.setBounds(1000, 60, 820, 940);
@@ -129,6 +135,7 @@ public class Board extends JPanel implements ActionListener {
         buyArtefact.setEnabled(false);
         add(buyArtefact);
 
+        //Restart button
         restart = new JButton();
         restart.setBounds(400, 420, 140, 60);
         restart.setOpaque(false);
@@ -138,6 +145,19 @@ public class Board extends JPanel implements ActionListener {
         restart.setActionCommand("RESTART");
         restart.setEnabled(false);
         add(restart);
+        
+        //Save button
+        save = new JButton();
+        save.setBounds(100, 420, 140, 60);
+        save.setOpaque(false);
+        save.setContentAreaFilled(false);
+        save.setBorderPainted(false);
+        save.addActionListener(this);
+        save.setActionCommand("SAVE");
+        save.setEnabled(false);
+        add(save);
+
+
         
         player = new Stats();
         
@@ -228,12 +248,13 @@ public class Board extends JPanel implements ActionListener {
         //Level/Name/Price of Heroes
         int y = 250;
         if(page < 4) {
+            save.setEnabled(false);
             restart.setEnabled(false);
             buyArtefact.setEnabled(false);
             changeArtefactsBuyButtons(false);
             changeHeroesBuyButtons(true);
             for (int i = page*4; i < page*4 + 4; i++) {
-                g.drawImage(player.getHeroes(i).getIcon(), 540, y-20, null);
+                g.drawImage(player.getHeroImage(i), 540, y-20, null);
                 g.drawImage(buy_button, 50, y, null);
                 g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
                 g.drawString(player.getHeroes(i).getName(), 200, y+20);
@@ -245,6 +266,7 @@ public class Board extends JPanel implements ActionListener {
         }
         //Artifact page
         else if (page == 4) {
+            save.setEnabled(false);
             changeHeroesBuyButtons(false);
             changeArtefactsBuyButtons(true);
             g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
@@ -284,6 +306,7 @@ public class Board extends JPanel implements ActionListener {
         }
         //Stats of player
         else if (page == 5) {
+            save.setEnabled(false);
             restart.setEnabled(false);
             buyArtefact.setEnabled(false);
             changeHeroesBuyButtons(false);
@@ -301,12 +324,14 @@ public class Board extends JPanel implements ActionListener {
         }
         //Setting
         else {
+            save.setEnabled(true);
             restart.setEnabled(false);
             buyArtefact.setEnabled(false);
             changeHeroesBuyButtons(false);
             changeArtefactsBuyButtons(false);
             g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
             g.drawString("Settings", 220, 300);
+            g.drawImage(buy_button, 100, 420, null);
         }
     }
 
@@ -319,6 +344,29 @@ public class Board extends JPanel implements ActionListener {
                 buy_buttons.get(i).setActionCommand("buy"+(page*4+i));
             }
             this.repaint();
+        }
+        else if (e.getActionCommand() == "SAVE") {
+            try {
+                File directory = new File("saves");
+                if (!directory.exists()) {
+                    directory.mkdir();
+                }
+                System.out.println("Start");
+                FileOutputStream fos = new FileOutputStream("saves/player.txt");
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(player);
+                oos.flush();
+                oos.close();
+                System.out.println("done 1");
+                fos = new FileOutputStream("saves/artefacts.txt");
+                oos = new ObjectOutputStream(fos);
+                oos.writeObject(artefacts);
+                oos.flush();
+                oos.close();
+                System.out.println("done 2");
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
         else if (e.getActionCommand() == "RESTART") {
             int feather = player.getFeather();

@@ -1,11 +1,12 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Artefacts {
+public class Artefacts implements Serializable {
     private ArrayList<Artefact> artefacts = new ArrayList<Artefact>();
     private long price; 
     private int artefactLeft;
-    private Random rand = new Random();
+    
     
     public Artefacts(long price) {
         this.price = price;
@@ -21,6 +22,7 @@ public class Artefacts {
     }
 
     public Artefact buyArtifact() {
+        Random rand = new Random();
         Artefact art = artefacts.remove(rand.nextInt(artefactLeft));
         artefactLeft--;
         price += 100;

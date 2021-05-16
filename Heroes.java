@@ -1,30 +1,25 @@
 import java.awt.*;
+import java.io.Serializable;
 
-public class Heroes {
+public class Heroes implements Serializable {
     private String name;
     private long dmg;
     private long price;
     private long level;
-    private Image icon;
+    
 
-    public Heroes(String name, long level, Image icon) {
+    public Heroes(String name, long level) {
         this.name = name;
         this.dmg = level*10/9;
         this.price = level*10/7;
         this.level = 1;
-        this.icon = icon;
     }
 
-    public Heroes(String name, long level, long dmg, long price, Image icon) {
+    public Heroes(String name, long level, long dmg, long price) {
         this.name = name;
         this.level = level;
         this.dmg = dmg;
         this.price = price;
-        this.icon = icon;
-    }
-
-    public Image getIcon() {
-        return icon;
     }
 
     public String getName() {
