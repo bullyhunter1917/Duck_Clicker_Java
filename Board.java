@@ -25,20 +25,16 @@ public class Board extends JPanel implements ActionListener {
     //Must have classes
     private Enemy oponent_stats;
     private Stats player;
-    private Heroes Hero;
     private Artefacts artefacts;
     //Buttons for artefacts
     private JButton buyArtefact;
     private JButton restart;
     private ArrayList<JButton> buyArtefacts;
-    //Arrays for heroes and buttons
-    private ArrayList<Heroes> bohaterowie;
+    //Arrays for heroes buy buttons
     private ArrayList<JButton> buy_buttons;
     //String arrays for constant values
     private final String[] oponentPath = {"kaczka1_poprawiona.png", "hrabia_Kaczula.png"};
-    private final String[] heroesNames = {"Beat Saber Duck", "YasDuck", "Waifu Duck", "No Name Duck", "No Name Duck", "No Name Duck", "No Name Duck", "No Name Duck"};
-    private final String[] heroesPath = {"beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "Yasuokaczka.png", "Yasuokaczka.png", "Yasuokaczka.png", "Yasuokaczka.png", "Yasuokaczka.png"};
-
+    
     public Board() {
         initBoard();
     }
@@ -69,16 +65,6 @@ public class Board extends JPanel implements ActionListener {
 
             dx += 99;
             add(button);
-        }
-
-        //Creating all heroes
-        bohaterowie = new ArrayList<Heroes>();
-        int dPrice = 0;
-        for (int i = 0; i < heroesNames.length; i++) {
-            if (i == 0) { Hero = new Heroes(heroesNames[i], 1, 1, 1, loadImage(heroesPath[i])); }
-            else { Hero = new Heroes(heroesNames[i], 0, 0, dPrice, loadImage(heroesPath[i])); }
-            bohaterowie.add(Hero);
-            dPrice += 10;
         }
 
         //Creating buy buttons
@@ -178,8 +164,8 @@ public class Board extends JPanel implements ActionListener {
             @Override
             public void run() {
                 int suma = 0;
-                for (int i = 1; i < heroesNames.length; i++) {
-                    suma += bohaterowie.get(i).getDmg();
+                for (int i = 1; i < player.getHeroesCount(); i++) {
+                    suma += player.getHeroes(i).getDmg();
                 }
                 oponent_stats.health -= suma;
                 if (oponent_stats.health <= 0) {
@@ -247,13 +233,13 @@ public class Board extends JPanel implements ActionListener {
             changeArtefactsBuyButtons(false);
             changeHeroesBuyButtons(true);
             for (int i = page*4; i < page*4 + 4; i++) {
-                g.drawImage(bohaterowie.get(i).getIcon(), 540, y-20, null);
+                g.drawImage(player.getHeroes(i).getIcon(), 540, y-20, null);
                 g.drawImage(buy_button, 50, y, null);
                 g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-                g.drawString(bohaterowie.get(i).getName(), 200, y+20);
+                g.drawString(player.getHeroes(i).getName(), 200, y+20);
                 g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-                g.drawString("Level: " + bohaterowie.get(i).getLevel(), 200, y+50);
-                g.drawString("Price: " + bohaterowie.get(i).getPrice(), 200, y+80);
+                g.drawString("Level: " + player.getHeroes(i).getLevel(), 200, y+50);
+                g.drawString("Price: " + player.getHeroes(i).getPrice(), 200, y+80);
                 y += 200;
             }
         }
@@ -309,7 +295,7 @@ public class Board extends JPanel implements ActionListener {
             g.drawString("Level: " + player.getLevel(), 50, 400);
             g.drawString("Ilość Kliknięć: " + player.getIloscKlikniec(), 50, 450);
             g.drawString("Zarobione srebro: " + player.getTotalGold(), 50, 500);
-            g.drawString("Click Attention: " + bohaterowie.get(0).getDmg(), 50, 550);
+            g.drawString("Click Attention: " + player.getHeroes(0).getDmg(), 50, 550);
             g.drawString("Heroes Levels: " + player.getHereosLevels(), 50, 600);
             g.drawString("Fethers: " + player.getFeather(), 50, 650);
         }
@@ -335,11 +321,23 @@ public class Board extends JPanel implements ActionListener {
             this.repaint();
         }
         else if (e.getActionCommand() == "RESTART") {
-            player.depositFeathers(100);
+            int feather = player.getFeather();
+            long temp = player.getHereosLevels() + player.getLevel();
+            ArrayList<Artefact> artefacts = player.getOwnedArtefacts();
+            player = new Stats();
+            player.depositFeathers(feather + (int)(temp/10));
+            for (Artefact artefact : artefacts) {
+                player.addArtefact(artefact);
+            }
+            oponent_stats = new Enemy(player.getLevel(), player.getLevel()*120/11f, loadImage(oponentPath[0]));
+
+            restart.setEnabled(false);
+
             this.repaint();
         }
         else if (e.getActionCommand() == "Artefact") {
             if (artefacts.canBuy(player.getFeather())) {
+                player.payFeather((int)artefacts.getPrice());
                 player.addArtefact(artefacts.buyArtifact());
                 this.repaint();
             }
@@ -347,10 +345,10 @@ public class Board extends JPanel implements ActionListener {
         //Attack button
         else if (e.getActionCommand() == "Dmg"){
             player.counterAdd1();
-            oponent_stats.health -= bohaterowie.get(0).getDmg();
+            oponent_stats.health -= player.getHeroes(0).getDmg()*player.getArtefactPower("Sign of wisdom");
             if (oponent_stats.health <= 0) {
                 Random rand = new Random();
-                player.depositGold(oponent_stats.getLevel()*5/4);
+                player.depositGold((oponent_stats.getLevel()*5/4) * player.getArtefactPower("Golden Feather"));
                 player.addLevel();
                 oponent_stats = new Enemy(player.getLevel(), player.getLevel()*120/11f, loadImage(oponentPath[rand.nextInt(2)]));
             }
@@ -368,9 +366,9 @@ public class Board extends JPanel implements ActionListener {
         //Buy buttons
         else if ((e.getActionCommand()).substring(0,3).equals("buy")) {
             int index = Integer.valueOf(e.getActionCommand().substring(3));
-            if(bohaterowie.get(index).canBuy(player.getGold())) {
-                player.payGold(bohaterowie.get(index).getPrice());
-                bohaterowie.get(index).upgrade();
+            if(player.getHeroes(index).canBuy(player.getGold())) {
+                player.payGold(player.getHeroes(index).getPrice());
+                player.getHeroes(index).upgrade();
                 player.addHeroesLevels();
                 this.repaint();
             }
