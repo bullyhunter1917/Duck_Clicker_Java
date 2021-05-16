@@ -1,9 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Board extends JPanel implements ActionListener {
@@ -54,8 +57,43 @@ public class Board extends JPanel implements ActionListener {
     public void initBoard(){
         this.setLayout(null);
 
-        //Initing artefacts
-        artefacts = new Artefacts(100);
+        File playerFile = new File("saves/player.txt");
+        if (playerFile.exists()) {
+            try {
+                FileInputStream fileIn = new FileInputStream("saves/player.txt");
+                ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+
+                player = (Stats) objectIn.readObject();
+
+                objectIn.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            player = new Stats();    
+        }
+        File artefactsFile = new File("saves/artefacts.txt");
+        if (artefactsFile.exists()) {
+            try {
+                FileInputStream fileIn = new FileInputStream("saves/artefacts.txt");
+                ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+
+                artefacts = (Artefacts) objectIn.readObject();
+
+                objectIn.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            artefacts = new Artefacts(100);
+        }
 
         page = 0;
 
@@ -148,7 +186,7 @@ public class Board extends JPanel implements ActionListener {
         
         //Save button
         save = new JButton();
-        save.setBounds(100, 420, 140, 60);
+        save.setBounds(90, 420, 160, 80);
         save.setOpaque(false);
         save.setContentAreaFilled(false);
         save.setBorderPainted(false);
@@ -156,10 +194,7 @@ public class Board extends JPanel implements ActionListener {
         save.setActionCommand("SAVE");
         save.setEnabled(false);
         add(save);
-
-
         
-        player = new Stats();
         
         //Init oponent
         oponent_stats = new Enemy(loadImage("kaczka1_poprawiona.png"));
@@ -364,6 +399,8 @@ public class Board extends JPanel implements ActionListener {
                 oos.flush();
                 oos.close();
                 System.out.println("done 2");
+
+                JOptionPane.showMessageDialog(null, "Sucsesfully saved", "", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
