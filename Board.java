@@ -31,6 +31,7 @@ public class Board extends JPanel implements ActionListener {
     private Image buy_button;
     private Image restart_button;
     private Image sold_out;
+    private Image save_button;
     private Image gold_icon;
     //Must have classes
     private Enemy oponent_stats;
@@ -199,7 +200,7 @@ public class Board extends JPanel implements ActionListener {
         
         
         //Init oponent
-        oponent_stats = new Enemy(loadImage("kaczka1_poprawiona.png"));
+        oponent_stats = new Enemy(player.getLevel(), player.getLevel()*120/11f, loadImage(oponentPath[0]));
 
         //Adding images
         background = loadImage("game_background.jpg");
@@ -209,6 +210,7 @@ public class Board extends JPanel implements ActionListener {
         buy_button = loadImage("buy_button.jpg");
         restart_button = loadImage("restart_button.png");
         sold_out = loadImage("sold_out.png");
+        save_button = loadImage("save_button.png");
         gold_icon = loadImage("coin_icon.png");
         
 
@@ -370,7 +372,7 @@ public class Board extends JPanel implements ActionListener {
             changeArtefactsBuyButtons(false);
             g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
             g.drawString("Settings", 220, 300);
-            g.drawImage(buy_button, 100, 420, null);
+            g.drawImage(save_button, 100, 420, null);
         }
     }
 
