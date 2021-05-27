@@ -2,13 +2,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,7 +23,6 @@ public class Board extends JPanel implements ActionListener {
     private int page;
     //Images
     private Image background;
-    private Image background_ducks;
     private Image background_clicking_area;
     private Image gold_background;
     private Image buy_button;
@@ -205,7 +202,7 @@ public class Board extends JPanel implements ActionListener {
         //Adding images
         background = loadImage("game_background.jpg");
         background_clicking_area = loadImage("ClickingArea_background_wieksze.png");
-        background_ducks = loadImage("ducks_background_page1.png");
+        
         gold_background = loadImage("coin_background.png");
         buy_button = loadImage("buy_button.jpg");
         restart_button = loadImage("restart_button.png");

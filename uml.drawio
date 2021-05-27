@@ -1,0 +1,100 @@
+<mxfile>
+    <diagram id="YZ8Y8s8JSDJF_yTaRwAi" name="Page-1">
+        <mxGraphModel dx="1270" dy="582" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="StateMengaer" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="20" y="70" width="170" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="- app: Application" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="2">
+                    <mxGeometry y="30" width="170" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="2">
+                    <mxGeometry y="56" width="170" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="+ void  change(state: JPanel) " style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="2">
+                    <mxGeometry y="64" width="170" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="Application" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="-170" y="200" width="160" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="- initUI(state: JPanel) : void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="16">
+                    <mxGeometry y="26" width="160" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="Boadr" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="10" y="210" width="260" height="400" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="- msg: StateMengaer&#10;- page: int&#10;- background: Image&#10;- background_ducks: Image&#10;- background_clicking_area: Image&#10;- gold_background: Image&#10;- buy_button: Image&#10;- gold_icon: Image&#10;- oponent_stats: Enemy&#10;- player: Stats&#10;- artefacts: Artefacts&#10;- buyArtefact: JButton&#10;- restart: JButton&#10;- buyArtefacts: ArrayList&lt;JButton&gt;&#10;- buy_buttons: ArrayList&lt;JButton&gt;&#10;- save: JButton&#10;- oponentPath: final String[ ]" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="21">
+                    <mxGeometry y="26" width="260" height="254" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="21">
+                    <mxGeometry y="280" width="260" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="+ initBoard() : void&#10;-  loadImage(path: String): Image&#10;-  loadPage(page: int): Image&#10;-  changeHeroesBuyButtons(z: boolean): void&#10;-  changeArtefactsBuyButtons(z: boolean): void&#10;+ paintComponent(g: Graphics): void&#10;+ actionPerformed(e: ActionEvent): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="21">
+                    <mxGeometry y="288" width="260" height="112" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="Stats" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="-290" y="320" width="250" height="520" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="-  level: long&#10;- ilosc_klikniec: long&#10;- gold: long&#10;- total_gold: long&#10;- feather: int&#10;- heroesLevels: long&#10;- artefactCount: int&#10;- owend_Artefacts: ArrayList&lt;Artefacts&gt;&#10;- heroes: ArrayList&lt;Heroes&gt;&#10;- heroesNames: final String[ ]&#10;-heroesPath: final String[ ]" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="26">
+                    <mxGeometry y="26" width="250" height="174" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="26">
+                    <mxGeometry y="200" width="250" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="-  loadImage(path: String) : Image&#10;+ getGold() : long&#10;+ getLevel(): long&#10;+ getTotalGold(): long&#10;+ getIloscKlikniec(): long&#10;+ addLevel(): void&#10;+ payGold(suma: long): void&#10;+ depositGold(suma: long): void&#10;+ counterAdd1(): void&#10;+ addArtefact(art: Artefact): void&#10;+ addHeroesLevels(): void&#10;+ getHeroesLevels(): long&#10;+ getFeather(): int&#10;+ depositFeathers(value: int): void&#10;+ payFeather(price: int): void&#10;+ getOwnedArtefacts(): ArrayList&lt;Artefacts&gt;&#10;+ getArtefactCount(): int&#10;+ getArtefactPower(name: String): int&#10;+ getHeroes(index: int): Heroes&#10;+ getHeroesCount(): int&#10;+ getHeroImage(index: int): Image" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="26">
+                    <mxGeometry y="208" width="250" height="312" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="Heroes" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="-590" y="390" width="190" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="- name: String&#10;- dmg: long&#10;- prive: long&#10;- level: long" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="30">
+                    <mxGeometry y="26" width="190" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="30">
+                    <mxGeometry y="90" width="190" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="+ getName(): String&#10;+ getDmg(): long&#10;+ getPrive(): long&#10;+ canBuy(money: long): boolean&#10;+ upgrade(): void&#10;+ getLevel(): String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="30">
+                    <mxGeometry y="100" width="190" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="Artefact" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="-520" y="60" width="200" height="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="- name: String&#10;- efect: String&#10;- level: int&#10;- power: int&#10;- price: int&#10;- icon: Image" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="35">
+                    <mxGeometry y="26" width="200" height="114" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="35">
+                    <mxGeometry y="140" width="200" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="-  loadImage(path: String): Image&#10;+ canUpgrade(fethers: int): boolean&#10;+ upgrade(wzmocnienie: int): void&#10;+ getName(): String&#10;+ getEfect(): String&#10;+ getLevel(): int&#10;+ getPower(): int&#10;+getPrice(): int&#10;+ getIcon(): Image" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="35">
+                    <mxGeometry y="148" width="200" height="142" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="Artefacts" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="-790" y="100" width="190" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" value="- artefacts: ArrayList&lt;Artefact&gt;&#10;- price: long&#10;- artefactLeft: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="39">
+                    <mxGeometry y="26" width="190" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="39">
+                    <mxGeometry y="80" width="190" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" value="+ canBuy(money: long): boolean&#10;+ buyArtifact(): Artefact&#10;+ getPrice(): long&#10;+ getArtefactsLeft(): int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="39">
+                    <mxGeometry y="88" width="190" height="72" as="geometry"/>
+                </mxCell>
+                <mxCell id="43" value="Enemy" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="-710" y="770" width="160" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="44" value="- icon: Image&#10;- level: long&#10;- fullHealth: float&#10;- health: float" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="43">
+                    <mxGeometry y="26" width="160" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="45" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="43">
+                    <mxGeometry y="90" width="160" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" value="+ getLevel(): long&#10;+ getImage(): Image&#10;+ proventHealth(): float&#10;+getStringHealth(): String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="43">
+                    <mxGeometry y="98" width="160" height="72" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
