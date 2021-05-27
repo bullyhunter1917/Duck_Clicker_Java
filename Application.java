@@ -1,16 +1,17 @@
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Application extends JFrame{
     
-    public Application() {
-        initUI();
+    public Application(JPanel state) {
+        initUI(state);
     }
 
-    private void initUI() {
+    private void initUI(JPanel state) {
 
         //StateMengaer msg = new StateMengaer(this);
         
-        add(new Board());
+        add(state);
 
         setSize(1920, 1080);
 
