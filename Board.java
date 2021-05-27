@@ -29,6 +29,8 @@ public class Board extends JPanel implements ActionListener {
     private Image background_clicking_area;
     private Image gold_background;
     private Image buy_button;
+    private Image restart_button;
+    private Image sold_out;
     private Image gold_icon;
     //Must have classes
     private Enemy oponent_stats;
@@ -205,6 +207,8 @@ public class Board extends JPanel implements ActionListener {
         background_ducks = loadImage("ducks_background_page1.png");
         gold_background = loadImage("coin_background.png");
         buy_button = loadImage("buy_button.jpg");
+        restart_button = loadImage("restart_button.png");
+        sold_out = loadImage("sold_out.png");
         gold_icon = loadImage("coin_icon.png");
         
 
@@ -310,14 +314,14 @@ public class Board extends JPanel implements ActionListener {
             g.drawString("Feathers: " + player.getFeather(), 100, 400);
             g.drawString("Price: " + artefacts.getPrice(), 100, 450);
             if (player.getLevel() < 500) {
-                g.drawImage(buy_button, 400, 420, null);
+                g.drawImage(restart_button, 400, 420, null);
                 g.setFont(new Font("TimesRoman", Font.PLAIN, 15));
                 g.drawString("Can restart after lvl 500", 400, 500);
                 g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
             }
             else {
                 restart.setEnabled(true);
-                g.drawImage(buy_button, 400, 420, null);
+                g.drawImage(restart_button, 400, 420, null);
             }
             
             if (artefacts.getArtefactsLeft() > 0) {
@@ -325,7 +329,7 @@ public class Board extends JPanel implements ActionListener {
                 g.drawImage(buy_button, 400, 360, null);  
             } else {
                 buyArtefact.setEnabled(false);
-                g.drawImage(buy_button, 400, 360, null);
+                g.drawImage(sold_out, 400, 360, null);
             }
             
             int dy = 550;

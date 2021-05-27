@@ -13,8 +13,8 @@ public class Stats implements Serializable {
     private int artefactCount;
     private ArrayList<Artefact> owned_Artefacts;
     private ArrayList<Heroes> bohaterowie;
-    private final String[] heroesNames = {"Beat Saber Duck", "YasDuck", "Waifu Duck", "No Name Duck", "No Name Duck", "No Name Duck", "No Name Duck", "No Name Duck"};
-    private final String[] heroesPath = {"beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "Yasuokaczka.png", "Yasuokaczka.png", "Yasuokaczka.png", "Yasuokaczka.png", "Yasuokaczka.png"};
+    private final String[] heroesNames = {"Beat Saber Duck", "YasDuck", "Waifu Duck", "No Name Duck", "Beat Saber Duck", "YasDuck", "Waifu Duck", "No Name Duck", "Beat Saber Duck", "YasDuck", "Waifu Duck", "No Name Duck", "Beat Saber Duck", "YasDuck", "Waifu Duck", "No Name Duck"};
+    private final String[] heroesPath = {"beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "Yasuokaczka.png", "beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "Yasuokaczka.png", "beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "Yasuokaczka.png", "beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "Yasuokaczka.png"};
 
     public Stats() {
         level = 1;
