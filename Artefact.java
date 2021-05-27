@@ -9,7 +9,7 @@ public class Artefact implements Serializable{
     private int level;
     private int power;
     private int price;
-    private transient Image icon;
+    private String icon;
 
     public Artefact(String name, String efect, int level, int power, int price, String path) {
         this.name = name;
@@ -17,7 +17,7 @@ public class Artefact implements Serializable{
         this.level = level;
         this.power = power;
         this.price = price;
-        icon = loadImage(path);
+        icon = path;
     }
 
     private Image loadImage(String path) {
@@ -56,6 +56,6 @@ public class Artefact implements Serializable{
     }
 
     public Image getIcon() {
-        return icon;
+        return loadImage(icon);
     }
 }
