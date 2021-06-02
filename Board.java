@@ -137,7 +137,6 @@ public class Board extends JPanel implements ActionListener {
         for (int j = 0; j < 3; j++) {
             JButton button = new JButton();
             button.setBounds(50, dy, 140, 60);
-            button.setEnabled(false);
 
             button.setOpaque(false);
             button.setContentAreaFilled(false);
@@ -262,13 +261,13 @@ public class Board extends JPanel implements ActionListener {
 
     private void changeHeroesBuyButtons(boolean z) {
         for (JButton button : buy_buttons) {
-            button.setEnabled(z);
+            button.setVisible(z);
         }
     }
 
     private void changeArtefactsBuyButtons(boolean z) {
         for (JButton button : buyArtefacts) {
-            button.setEnabled(z);
+            button.setVisible(z);
         }
     }
 
