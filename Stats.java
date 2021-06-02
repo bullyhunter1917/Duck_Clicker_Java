@@ -4,6 +4,8 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public class Stats implements Serializable {
+    
+    private int mrozon_index = -1;
     private long level;
     private long ilosc_klikniec;
     private long gold;
@@ -16,12 +18,13 @@ public class Stats implements Serializable {
     private final String[] heroesNames = {"Beat Saber Duck", "YasDuck", "Waifu Duck", "No Name Duck", "Beat Saber Duck", "YasDuck", "Waifu Duck", "No Name Duck", "Beat Saber Duck", "YasDuck", "Waifu Duck", "No Name Duck", "Beat Saber Duck", "YasDuck", "Waifu Duck", "No Name Duck"};
     private final String[] heroesPath = {"beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "Yasuokaczka.png", "beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "Yasuokaczka.png", "beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "Yasuokaczka.png", "beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "Yasuokaczka.png"};
 
+
     public Stats() {
         level = 1;
         ilosc_klikniec = 0;
         gold = 0;
         total_gold = 0;
-        feather = 0;
+        feather = 1000000;
         heroesLevels = 1;
         artefactCount = 0;
         owned_Artefacts = new ArrayList<Artefact>();
@@ -76,6 +79,9 @@ public class Stats implements Serializable {
 
     public void addArtefact(Artefact art) {
         owned_Artefacts.add(art);
+        if (art.getName() == "Mrożon") {
+            mrozon_index = artefactCount;
+        }
         artefactCount += 1;
     }
 
@@ -126,5 +132,17 @@ public class Stats implements Serializable {
 
     public Image getHeroImage(int index) {
         return loadImage(heroesPath[index]);
+    }
+
+    public boolean ifEnd() {
+        if (mrozon_index > 0) {
+            if (owned_Artefacts.get(mrozon_index).getPower() >= 10) {
+                return true;
+            }
+            
+            return false;
+        }
+
+        return false;
     }
 }

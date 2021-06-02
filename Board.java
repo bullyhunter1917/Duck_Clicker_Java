@@ -42,6 +42,7 @@ public class Board extends JPanel implements ActionListener {
     private ArrayList<JButton> buy_buttons;
     //Buttons for settings
     private JButton save;
+    private JButton end;
     //String arrays for constant values
     private final String[] oponentPath = {"kaczka1_poprawiona.png", "hrabia_Kaczula.png"};
     
@@ -195,7 +196,17 @@ public class Board extends JPanel implements ActionListener {
         save.setEnabled(false);
         add(save);
         
-        
+        //End button
+        end = new JButton();
+        end.setBounds(320, 420, 160, 80);
+        //end.setOpaque(false);
+        //end.setContentAreaFilled(false);
+        //end.setBorderPainted(false);
+        end.addActionListener(this);
+        end.setActionCommand("END");
+        end.setEnabled(false);
+        add(end);
+
         //Init oponent
         oponent_stats = new Enemy(player.getLevel(), player.getLevel()*120/11f, loadImage(oponentPath[0]));
 
@@ -286,6 +297,7 @@ public class Board extends JPanel implements ActionListener {
         //Level/Name/Price of Heroes
         int y = 250;
         if(page < 4) {
+            end.setEnabled(false);
             save.setEnabled(false);
             restart.setEnabled(false);
             buyArtefact.setEnabled(false);
@@ -304,6 +316,7 @@ public class Board extends JPanel implements ActionListener {
         }
         //Artifact page
         else if (page == 4) {
+            end.setEnabled(false);
             save.setEnabled(false);
             changeHeroesBuyButtons(false);
             changeArtefactsBuyButtons(true);
@@ -344,6 +357,7 @@ public class Board extends JPanel implements ActionListener {
         }
         //Stats of player
         else if (page == 5) {
+            end.setEnabled(false);
             save.setEnabled(false);
             restart.setEnabled(false);
             buyArtefact.setEnabled(false);
@@ -362,6 +376,9 @@ public class Board extends JPanel implements ActionListener {
         }
         //Setting
         else {
+            if (player.ifEnd()) {
+                end.setEnabled(true);
+            }
             save.setEnabled(true);
             restart.setEnabled(false);
             buyArtefact.setEnabled(false);
@@ -382,6 +399,9 @@ public class Board extends JPanel implements ActionListener {
                 buy_buttons.get(i).setActionCommand("buy"+(page*4+i));
             }
             this.repaint();
+        }
+        else if (e.getActionCommand() == "END") {
+            msg.change(new EndState(msg));
         }
         else if (e.getActionCommand() == "SAVE") {
             try {
