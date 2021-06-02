@@ -5,12 +5,10 @@ import javax.swing.JPanel;
 
 public class EndState extends JPanel {
     
-    private StateMengaer msg;
     private Image background;
     private Image tlo_napisu;
 
-    public EndState(StateMengaer msg) {
-        this.msg = msg;
+    public EndState() {
         initEndState();
     }
 

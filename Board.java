@@ -400,7 +400,7 @@ public class Board extends JPanel implements ActionListener {
             this.repaint();
         }
         else if (e.getActionCommand() == "END") {
-            msg.change(new EndState(msg));
+            msg.change(new EndState());
         }
         else if (e.getActionCommand() == "SAVE") {
             try {
