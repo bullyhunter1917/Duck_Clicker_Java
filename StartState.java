@@ -44,7 +44,7 @@ public class StartState extends JPanel implements ActionListener {
         //Drawing background of this state
         g.drawImage(background, 0, 0, null);
         g.drawImage(tlo_napisu, 590, 80, null);
-        g.setFont(new Font("SigmarOne", Font.PLAIN, 120));
+        g.setFont(new Font("Noto", Font.PLAIN, 120));
         g.drawString("Welcome", 730, 180);
         g.drawString("to", 900, 300);
         g.drawString("Duck Clicker", 630, 420);
