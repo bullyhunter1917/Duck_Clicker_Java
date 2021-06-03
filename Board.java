@@ -181,7 +181,7 @@ public class Board extends JPanel implements ActionListener {
         restart.setBorderPainted(false);
         restart.addActionListener(this);
         restart.setActionCommand("RESTART");
-        restart.setEnabled(false);
+        restart.setVisible(false);
         add(restart);
         
         //Save button
@@ -197,13 +197,13 @@ public class Board extends JPanel implements ActionListener {
         
         //End button
         end = new JButton();
-        end.setBounds(320, 420, 160, 80);
-        //end.setOpaque(false);
-        //end.setContentAreaFilled(false);
-        //end.setBorderPainted(false);
+        end.setBounds(420, 420, 160, 80);
+        end.setOpaque(false);
+        end.setContentAreaFilled(false);
+        end.setBorderPainted(false);
         end.addActionListener(this);
         end.setActionCommand("END");
-        end.setEnabled(false);
+        end.setVisible(false);
         add(end);
 
         //Init oponent
@@ -296,9 +296,9 @@ public class Board extends JPanel implements ActionListener {
         //Level/Name/Price of Heroes
         int y = 250;
         if(page < 4) {
-            end.setEnabled(false);
+            end.setVisible(false);
             save.setEnabled(false);
-            restart.setEnabled(false);
+            restart.setVisible(false);
             buyArtefact.setEnabled(false);
             changeArtefactsBuyButtons(false);
             changeHeroesBuyButtons(true);
@@ -315,7 +315,7 @@ public class Board extends JPanel implements ActionListener {
         }
         //Artifact page
         else if (page == 4) {
-            end.setEnabled(false);
+            end.setVisible(false);
             save.setEnabled(false);
             changeHeroesBuyButtons(false);
             changeArtefactsBuyButtons(true);
@@ -331,7 +331,7 @@ public class Board extends JPanel implements ActionListener {
                 g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
             }
             else {
-                restart.setEnabled(true);
+                restart.setVisible(true);
                 g.drawImage(restart_button, 400, 420, null);
             }
             
@@ -356,9 +356,9 @@ public class Board extends JPanel implements ActionListener {
         }
         //Stats of player
         else if (page == 5) {
-            end.setEnabled(false);
+            end.setVisible(false);
             save.setEnabled(false);
-            restart.setEnabled(false);
+            restart.setVisible(false);
             buyArtefact.setEnabled(false);
             changeHeroesBuyButtons(false);
             changeArtefactsBuyButtons(false);
@@ -376,10 +376,11 @@ public class Board extends JPanel implements ActionListener {
         //Setting
         else {
             if (player.ifEnd()) {
-                end.setEnabled(true);
+                end.setVisible(true);
+                g.drawString("???", 440, 440);
             }
             save.setEnabled(true);
-            restart.setEnabled(false);
+            restart.setVisible(false);
             buyArtefact.setEnabled(false);
             changeHeroesBuyButtons(false);
             changeArtefactsBuyButtons(false);
@@ -408,19 +409,16 @@ public class Board extends JPanel implements ActionListener {
                 if (!directory.exists()) {
                     directory.mkdir();
                 }
-                System.out.println("Start");
                 FileOutputStream fos = new FileOutputStream("saves/player.txt");
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
                 oos.writeObject(player);
                 oos.flush();
                 oos.close();
-                System.out.println("done 1");
                 fos = new FileOutputStream("saves/artefacts.txt");
                 oos = new ObjectOutputStream(fos);
                 oos.writeObject(artefacts);
                 oos.flush();
                 oos.close();
-                System.out.println("done 2");
 
                 JOptionPane.showMessageDialog(null, "Sucsesfully saved", "", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException e1) {

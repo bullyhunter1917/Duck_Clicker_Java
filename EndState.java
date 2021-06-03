@@ -16,6 +16,7 @@ public class EndState extends JPanel {
         this.setLayout(null);
 
         background = loadImage("game_background.jpg");
+        tlo_napisu = loadImage("tlo_napisu_start.png");
     }
 
     private Image loadImage(String path) {
@@ -28,5 +29,10 @@ public class EndState extends JPanel {
         super.paintComponent(g);
 
         g.drawImage(background, 0, 0, null);
+        g.drawImage(tlo_napisu, 590, 100, null);
+        g.setFont(new Font("Noto", Font.PLAIN, 120));
+        g.drawString("Thanks", 750, 200);
+        g.drawString("for", 870, 320);
+        g.drawString("playing", 760, 430);
     }
 }

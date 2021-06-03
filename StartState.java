@@ -56,9 +56,6 @@ public class StartState extends JPanel implements ActionListener {
         if (e.getActionCommand() == "START") {
             //changing game state when we click start button
             msg.change(new Board(msg));
-            System.out.println("1");
-        } else {
-            System.out.println("cos");
-        }      
+        }       
     }
 }

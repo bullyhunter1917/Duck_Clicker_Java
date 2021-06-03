@@ -5,7 +5,6 @@ import javax.swing.ImageIcon;
 
 public class Stats implements Serializable {
     
-    private int mrozon_index = -1;
     private long level;
     private long ilosc_klikniec;
     private long gold;
@@ -24,7 +23,7 @@ public class Stats implements Serializable {
         ilosc_klikniec = 0;
         gold = 0;
         total_gold = 0;
-        feather = 1000000;
+        feather = 0;
         heroesLevels = 1;
         artefactCount = 0;
         owned_Artefacts = new ArrayList<Artefact>();
@@ -79,9 +78,6 @@ public class Stats implements Serializable {
 
     public void addArtefact(Artefact art) {
         owned_Artefacts.add(art);
-        if (art.getName() == "Mrożon") {
-            mrozon_index = artefactCount;
-        }
         artefactCount += 1;
     }
 
@@ -135,12 +131,10 @@ public class Stats implements Serializable {
     }
 
     public boolean ifEnd() {
-        if (mrozon_index > 0) {
-            if (owned_Artefacts.get(mrozon_index).getPower() >= 10) {
+        for (Artefact art : owned_Artefacts) {
+            if (art.getName() == "Mrożon" && art.getLevel() >= 10) {
                 return true;
             }
-            
-            return false;
         }
 
         return false;

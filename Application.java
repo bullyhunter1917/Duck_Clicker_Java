@@ -8,9 +8,6 @@ public class Application extends JFrame{
     }
 
     private void initUI(JPanel state) {
-
-        //StateMengaer msg = new StateMengaer(this);
-        
         add(state);
 
         setSize(1920, 1080);
