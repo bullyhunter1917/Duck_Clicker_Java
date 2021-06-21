@@ -44,7 +44,7 @@ public class Board extends JPanel implements ActionListener {
     private JButton save;
     private JButton end;
     //String arrays for constant values
-    private final String[] oponentPath = {"kaczka1_poprawiona.png", "hrabia_Kaczula.png"};
+    private final String[] oponentPath = {"kaczka1_poprawiona.png", "hrabia_Kaczula.png", "czarokaczka.png", "szkielekaczor.png"};
     
     public Board() {
         initBoard();
@@ -240,7 +240,7 @@ public class Board extends JPanel implements ActionListener {
                     Random rand = new Random();
                     player.depositGold(oponent_stats.getLevel()*5/4);
                     player.addLevel();
-                    oponent_stats = new Enemy(player.getLevel(), player.getLevel()*120/11f, loadImage(oponentPath[rand.nextInt(2)]));
+                    oponent_stats = new Enemy(player.getLevel(), player.getLevel()*120/11f, loadImage(oponentPath[rand.nextInt(oponentPath.length)]));
                 }
                 repaint();
             }
@@ -455,7 +455,7 @@ public class Board extends JPanel implements ActionListener {
                 Random rand = new Random();
                 player.depositGold((oponent_stats.getLevel()*5/4) * player.getArtefactPower("Golden Feather"));
                 player.addLevel();
-                oponent_stats = new Enemy(player.getLevel(), player.getLevel()*120/11f, loadImage(oponentPath[rand.nextInt(2)]));
+                oponent_stats = new Enemy(player.getLevel(), player.getLevel()*120/11f, loadImage(oponentPath[rand.nextInt(oponentPath.length)]));
             }
             this.repaint();
         }

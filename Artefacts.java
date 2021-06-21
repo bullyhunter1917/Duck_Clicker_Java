@@ -11,7 +11,7 @@ public class Artefacts implements Serializable {
     public Artefacts(long price) {
         this.price = price;
         this.artefactLeft = 3;
-        artefacts.add(new Artefact("Golden Feather", "Gold: x", 1, 2, 100, "szkielekaczor.png"));
+        artefacts.add(new Artefact("Golden Feather", "Gold: x", 1, 2, 100, "piórko.png"));
         artefacts.add(new Artefact("Sign of wisdom", "Attention: x", 1, 2, 100, "sign_of_wisdom.png"));
         artefacts.add(new Artefact("Mrożon", "?????: x", 1, 2, 100, "mrożon.png"));
     }

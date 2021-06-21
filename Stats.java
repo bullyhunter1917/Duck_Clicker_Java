@@ -14,8 +14,8 @@ public class Stats implements Serializable {
     private int artefactCount;
     private ArrayList<Artefact> owned_Artefacts;
     private ArrayList<Heroes> bohaterowie;
-    private final String[] heroesNames = {"Beat Saber Duck", "YasDuck", "Waifu Duck", "No Name Duck", "Beat Saber Duck", "YasDuck", "Waifu Duck", "No Name Duck", "Beat Saber Duck", "YasDuck", "Waifu Duck", "No Name Duck", "Beat Saber Duck", "YasDuck", "Waifu Duck", "No Name Duck"};
-    private final String[] heroesPath = {"beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "Yasuokaczka.png", "beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "Yasuokaczka.png", "beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "Yasuokaczka.png", "beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "Yasuokaczka.png"};
+    private final String[] heroesNames = {"Beat Saber Duck", "YasDuck", "Waifu Duck", "PayDuck", "Beat Saber Duck 2.0", "YasDuck 2.0", "Waifu Duck 2.0", "PayDuck 2.0", "Beat Saber Duck 3.0", "YasDuck 3.0", "Waifu Duck 3.0", "PayDuck 3.0", "Beat Saber Duck 4.0", "YasDuck 4.0", "Waifu Duck 4.0", "PayDuck 4.0"};
+    private final String[] heroesPath = {"beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "paydaykaczka.png", "beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "paydaykaczka.png", "beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "paydaykaczka.png", "beatsaberkaczka.png", "Yasuokaczka.png", "waifukaczuszka.png", "paydaykaczka.png"};
 
 
     public Stats() {
@@ -23,7 +23,7 @@ public class Stats implements Serializable {
         ilosc_klikniec = 0;
         gold = 0;
         total_gold = 0;
-        feather = 0;
+        feather = 100000;
         heroesLevels = 1;
         artefactCount = 0;
         owned_Artefacts = new ArrayList<Artefact>();
